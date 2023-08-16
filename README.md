@@ -37,7 +37,7 @@ Pada dasarnya, proses content-based filtering di Spotify melibatkan beberapa lan
   Setelah kesamaan fitur ditemukan, lagu-lagu yang memiliki karakteristik serupa dengan lagu-lagu yang sudah disukai oleh pengguna akan direkomendasikan. Hal ini memungkinkan pengguna menemukan musik baru yang tetap konsisten dengan preferensi mereka.
 
 - Evaluasi<br>
-Untuk mengukur keandalan sistem rekomendasi digunakan metrik evaluasi precision. Dalam sistem rekomendasi precision adalah jumlah item yang dipilih yang relevan
+  Untuk mengukur keandalan sistem rekomendasi digunakan metrik evaluasi precision. Dalam sistem rekomendasi precision adalah jumlah item yang dipilih yang relevan
 
 ## Data Understanding
 
@@ -198,11 +198,11 @@ setelah digabungkan nilai duplikat pada dataset akan menjadi sangat banyak. sela
 
 #### Menangani _Missing Value_
 
-Terdapat _missing value_ pada satu record dalam dataset _missing value_ tersebut terdapat pada fitur artists, album_name, track_name. dikarenakan hanya terdapat satu _missing value_ pada dataset, penulis menghapus record yang memiliki _missing value_ tersebut.
+Terdapat _missing value_ pada satu record dalam dataset _missing value_ tersebut terdapat pada fitur artists, album*name, track_name. dikarenakan hanya terdapat satu \_missing value* pada dataset, penulis menghapus record yang memiliki _missing value_ tersebut.
 
-#### *Sampling*
+#### _Sampling_
 
-Dikarenakan penulis mengalami masalah keterbatasan resource untuk mengolah semua dataset, penulis hanya mengambil 35000 data sampel dari 114000 data lagu tersebut. pengambilan sample dilakukan menggunakan method sample() dari *library* Pandas. Ketika menggunakan *method* sample() di Pandas, distribusi sampel secara umum akan menyerupai distribusi populasi [2], jadi tidak perlu khawatir akan terjadi bias pada sampel.
+Dikarenakan penulis mengalami masalah keterbatasan resource untuk mengolah semua dataset, penulis hanya mengambil 35000 data sampel dari 114000 data lagu tersebut. pengambilan sample dilakukan menggunakan method sample() dari _library_ Pandas. Ketika menggunakan _method_ sample() di Pandas, distribusi sampel secara umum akan menyerupai distribusi populasi [2], jadi tidak perlu khawatir akan terjadi bias pada sampel.
 
 ### Univariate Analysis
 
@@ -218,7 +218,7 @@ Track name atau judul lagu merupakan data bertipe objek akan sangat baik jika fi
 
 ![Alt text](assets/track_name.png)
 
-Ternyata banyak sekali lagu yang memiliki judul lagu yang mengandung kata "Love", "Remastered","Remix", "Feat" atau featuring  dan istilah dalam bahasa portugis seperti "Vivo" yang berarti hidup dan "Ao" yang berarti untuk atau dalam bahasa inggris memiliki arti "to the".
+Ternyata banyak sekali lagu yang memiliki judul lagu yang mengandung kata "Love", "Remastered","Remix", "Feat" atau featuring dan istilah dalam bahasa portugis seperti "Vivo" yang berarti hidup dan "Ao" yang berarti untuk atau dalam bahasa inggris memiliki arti "to the".
 
 ##### Fitur album_name
 
@@ -237,11 +237,12 @@ Siapakah artis atau _musician_ yang mendominasi sampel data?. pertanyaan ini aka
 Banyak artis yang memiliki nama DJ, Bad, Bunny. selain itu terdapat juga artis yang penulis kenal yaitu seorang pianis klasik terkenal abad 18 Wolfgang Amadeus Mozart dan band terkenal seperti The beatles dan Linkin park.
 
 ##### Fitur track_genre
+
 Dikarenakan fitur track genre memiliki nilai unik yang sangat banyak penulis hanya memvisualisasikan 25 genre yang paling banyak terdapat pada dataset berikut adalah visualisasi untuk fitur track_genre
 
 ![Alt text](assets/genre.png)
 
-bisa disimpulkan jika semua genre pada dataset memiliki jumlah lagu yang hampir seimbang. 
+bisa disimpulkan jika semua genre pada dataset memiliki jumlah lagu yang hampir seimbang.
 
 #### Fitur Numerik
 
@@ -249,7 +250,7 @@ Kebalikan dari fitur kategorikal, fitur numerik adalah fitur yang memiliki tipe 
 
 ##### Fitur duration
 
-Duration atau durasi dari lagu disimpan dalam format *milisecond*, agar mudah untuk dipahami penulis mengonversinya menjadi satuan menit berikut adalah informasi statistik dari durasi lagu untuk semua dataset:
+Duration atau durasi dari lagu disimpan dalam format _milisecond_, agar mudah untuk dipahami penulis mengonversinya menjadi satuan menit berikut adalah informasi statistik dari durasi lagu untuk semua dataset:
 
 |     | Statistik       | Nilai |
 | --: | :-------------- | ----: |
@@ -303,6 +304,7 @@ Berikut adalah histogram dari fitur key_note, mode, dan time_signature:
 Dari histogram tersebut bisa disimpulkan jika banyak sekali lagu yang memiliki kunci dasar antara C sampai D. lagu dengan kunci dasar C atau D umumnya adalah lagu yang mudah dimainkan dengan instrumen gitar atau instrumen lain selain itu mayoritas lagu menggunakan tanda nada mayor, dan memiliki birama ketukan 4/4.
 
 ##### Fitur popularity dan tempo
+
 Berikut adalah histogram dari fitur tempo
 
 ![Alt text](assets/pops.png)
@@ -321,20 +323,21 @@ Begitu pula dengan fitur tempo yang nilainya antara 0 - 221 penulis membagi nila
 Pada tahap ini penulis melakukan feature engineering atau pembuatan fitur diantaranya merubah fitur genre menjadi matrix TF-IDF dan membuat one-hot-encoding dari fitur popularity dan tempo. selain melakukan feature engineering penulis juga melakukan feature-scaling pada data numerik menggunakan Min Max Scaler.
 
 ### TF-IDF Fitur genre
-Term frequency–inverse document frequency, adalah ukuran statistik yang menggambarkan pentingnya suatu istilah terhadap sebuah dokumen dalam sebuah kumpulan atau korpus. Ukuran ini sering dipakai sebagai faktor pembobot dalam pencarian temu balik informasi, text mining, dan user modeling[3]. 
+
+Term frequency–inverse document frequency, adalah ukuran statistik yang menggambarkan pentingnya suatu istilah terhadap sebuah dokumen dalam sebuah kumpulan atau korpus. Ukuran ini sering dipakai sebagai faktor pembobot dalam pencarian temu balik informasi, text mining, dan user modeling[3].
 
 TF-idf digunakan untuk merubah fitur genre yang memiliki nilai string menjadi matriks numerik yang merepresentasikan genre dari lagu. jika sebuah lagu memiliki 2 atau lebih genre maka penggunaan TF-IDF **tidak** menentukan arah dominan dari genre-genre tersebut melainkan hanya merubahnya menjadi nilai numerik. berikut adalah salah satu contoh lagu yang sudah dikonversi menjadi matriks tf-idf
 
-| track_name | genre-pop | genre-dance | genre-electro| genre-indie-pop |
-|------------|-----------|-------------|--------------|-----------------|
-| Without Me | 0.443621  | 0.446681    | 0.454993     | 0.445443        |
-
+| track_name | genre-pop | genre-dance | genre-electro | genre-indie-pop |
+| ---------- | --------- | ----------- | ------------- | --------------- |
+| Without Me | 0.443621  | 0.446681    | 0.454993      | 0.445443        |
 
 ### One-Hot Encoding fitur popularity dan fitur tempo
+
 One-hot encoding adalah teknik yang digunakan dalam machine learning dan analisis data untuk mengubah variabel kategorikal menjadi representasi matriks biner. Teknik ini terutama digunakan untuk merepresentasikan data kategorikal dalam format yang dapat dengan mudah diproses oleh algoritme, karena banyak model pembelajaran mesin yang memerlukan input numerik. Setiap kategori diwakili oleh vektor biner unik di mana semua elemen bernilai 0 kecuali untuk indeks yang sesuai dengan kategori, yang setel ke 1[4]. pada tahap understanding penulis membagi nilai data dari fitur popularity dan fitur tempo menjadi 5 kategori yang berbeda. agar nilai kategori tersebut dapat diproses oleh algoritma cosine-similarity maka menulis merubahnya kedalam matriks numerik dengan teknik one hot encoding.
 
-
 ### Normalisasi fitur numerik dengan min-max scaler
+
 Min-max scaler merupakan salah satu teknik dalam preprocessing data pada machine learning. Teknik ini digunakan untuk mengubah skala nilai dari fitur-fitur dalam dataset agar nilainya berada dalam rentang tertentu, biasanya antara 0 dan 1[5]. normalisasi pada data dilakukan agar algotitma cosine-similiarity tidak terlalu sensitif pada data yang bernilai besar.
 
 ## Modeling
@@ -342,32 +345,32 @@ Min-max scaler merupakan salah satu teknik dalam preprocessing data pada machine
 Seperti yang dijelaskan pada tahap Business Understanding kita akan mengembangkan model machine learning dengan tiga algoritma yang berbeda. Kemudian, kita akan membandingkan mean absolute error dan waktu training masing-masing algoritma dan menentukan algoritma mana yang memberikan hasil prediksi terbaik. Ketiga algoritma tersebut antara lain:
 
 ### Cosine Similarity
+
 Cosine similarity adalah metrik yang digunakan untuk mengukur kemiripan antara dua vektor yang tidak nol dalam ruang multi-dimensi. Metrik ini mengukur kosinus sudut antara dua vektor, yang berkisar dari -1 (arah yang sepenuhnya berlawanan) hingga 1 (arah yang sepenuhnya sama). Semakin dekat nilai cosine similarity ke 1, semakin mirip vektor tersebut dalam hal orientasi dan arahnya.
 
 ![Alt text](assets/cosine_sim.png)
 ![Alt text](assets/cos_sim_formula.png)
 
-
 penulis membandingkan fitur-fitur yang sudah dipersiapkan pada tahap data preparation. Semakin tinggi nilai cosine similarity di antara lagu-lagu tersebut, semakin mirip karakteristik musiknya, yang meningkatkan kemungkinan pengguna akan menikmati lagu baru yang memiliki kemiripan ini.
 
 ### Melakukan Rekomendasi
+
 Setelah kesamaan fitur ditemukan, lagu-lagu yang memiliki karakteristik serupa dengan lagu-lagu yang sudah disukai oleh pengguna akan direkomendasikan. Hal ini memungkinkan pengguna menemukan musik baru yang tetap konsisten dengan preferensi mereka. berikut adalah hasil rekomendasi lagu:
 
 lagu yang pengguna dengar: DDU-DU DDU-DU - BLACKPINK
 
-| track_name                            | artists                                               | album_name                                | similiarity_score |
-|---------------------------------------|-------------------------------------------------------|-------------------------------------------|-------------------|
-| Love Shot                             | EXO                                                   | LOVE SHOT– The 5th Album Repackage        | 0.993455          |
-| Black Swan                            | BTS                                                   | Black Swan                               | 0.992694          |
-| VILLAIN                               | K/DA;Madison Beer;Kim Petras;League of Legends       | ALL OUT                                   | 0.991990          |
-| HOME                                  | BTS                                                   | MAP OF THE SOUL : PERSONA                | 0.991158          |
-| LA DI DA                              | EVERGLOW                                              | -77.82x-78.29                            | 0.988543          |
-| I NEED U                              | BTS                                                   | Proof                                   | 0.986266          |
-| Likey                                 | TWICE                                                 | Twicetagram                               | 0.985638          |
-| Lonely Boy (The tattoo on my ring finger) | TOMORROW X TOGETHER                               | minisode 2: Thursday's Child            | 0.985497          |
-| Anymore                               | JEON SOMI                                             | XOXO                                    | 0.985066          |
-| The Eve                               | EXO                                                   | THE WAR - The 4th Album                   | 0.984930          |
-
+| track_name                                | artists                                        | album_name                         | similiarity_score |
+| ----------------------------------------- | ---------------------------------------------- | ---------------------------------- | ----------------- |
+| Love Shot                                 | EXO                                            | LOVE SHOT– The 5th Album Repackage | 0.993455          |
+| Black Swan                                | BTS                                            | Black Swan                         | 0.992694          |
+| VILLAIN                                   | K/DA;Madison Beer;Kim Petras;League of Legends | ALL OUT                            | 0.991990          |
+| HOME                                      | BTS                                            | MAP OF THE SOUL : PERSONA          | 0.991158          |
+| LA DI DA                                  | EVERGLOW                                       | -77.82x-78.29                      | 0.988543          |
+| I NEED U                                  | BTS                                            | Proof                              | 0.986266          |
+| Likey                                     | TWICE                                          | Twicetagram                        | 0.985638          |
+| Lonely Boy (The tattoo on my ring finger) | TOMORROW X TOGETHER                            | minisode 2: Thursday's Child       | 0.985497          |
+| Anymore                                   | JEON SOMI                                      | XOXO                               | 0.985066          |
+| The Eve                                   | EXO                                            | THE WAR - The 4th Album            | 0.984930          |
 
 Bisa dilihat jika semua lagu yang direkomendasikan adalah lagu k-pop yang menandakan rekomendasi yang diberikan sesuai dengan preferensi musik pengguna, namun direkomendasi tersebut tidak terdapat lagu dari grup musik Blackpink yang mungkin adalah artis favorit pengguna. Hal ini dikarenakan penulis tidak memasukan fitur artist pada saat menghitung cosine-similarity dari fitur lagu.
 
@@ -379,7 +382,8 @@ Precision adalah ukuran seberapa banyak prediksi positif yang dibuat adalah bena
 
 ![Alt text](assets/precision.png)
 
-untuk mengukur relevan tidaknya rekomendasi penulis menetapkan sebuah aturan yaitu jika rekomendasi yang diberikan memiliki cosine-similiarity lebih dari 0.95 maka rekomendasi tersebut relevan. Sehingga precision dari hasil rekomendasi lagu  DDU-DU DDU-DU - BLACKPINK adalah 100%
+untuk mengukur relevan tidaknya rekomendasi penulis menetapkan sebuah aturan yaitu jika rekomendasi yang diberikan memiliki cosine-similiarity lebih dari 0.95 maka rekomendasi tersebut relevan. Sehingga precision dari hasil rekomendasi lagu DDU-DU DDU-DU - BLACKPINK adalah 100%
+
 ```
 Precision = (Jumlah item yang relevan / Jumlah item yang direkomendasikan) * 100%
 
@@ -388,11 +392,9 @@ Precision = 100%
 
 ```
 
-
 ## Kesimpulan
 
 Sistem rekomendasi berbasis konten yang telah dibuat terbilang cukup efektif karena model tersebut dapat merekomendasikan lagu sesuai dengan gaya musik lagu yang sudah didengar oleh pengguna. Hal ini memungkinkan pengguna menemukan musik baru yang tetap konsisten dengan preferensi mereka. tetapi terdepat hal yang harus diperbaiki yaitu sistem rekomendasi tersebut tidak merekomendasikan lagu yang memiliki artis yang sama dengan lagu yang pengguna dengar Hal ini dikarenakan penulis tidak memasukan fitur artist pada saat menghitung cosine-similarity dari fitur lagu.
-
 
 ## Referensi
 
